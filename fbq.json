@@ -2853,7 +2853,7 @@
         "price": "19.95",
         "currency": "USD",
         "url": "https:\/\/www.ebay.com\/itm\/233975995172?_skw=-thisisafakekeyword&hash=item367a0e5b24:g:058AAOSwhNtgf1rz",
-        "posted": false
+        "posted": true
     },
     {
         "itemID": "236221927061",
