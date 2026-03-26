@@ -52,14 +52,16 @@ $itemID = $nextItem['itemID'];
 $affiliateUrl = "https://www.ebay.com/itm/{$itemID}?mkevt=1&mkcid=1&mkrid={$rotationID}&campid={$campID}&toolid={$toolID}&customid=facebook_bot";
 
 $imgUrl = $nextItem['imgUrl'];
+// Force the 1600px high-res version
+$highResImgUrl = str_replace('s-l225', 's-l1600', $imgUrl);
 $dynamicTags = getHashtagsFromTitle($item['title']);
 $hashtags = "\n\n#eBayseller #eBayFinds #esquireattire " . $dynamicTags . " #ad";
-$message = $item['title'] . "\nPrice: " . $item['price'] . " " . $item['currency'] . "\n\n" . $hashtags . "\n\nLink:";
+$message = $item['title'] . "\nPrice: " . $item['price'] . " " . $item['currency'] . "\n\nLink:" .$affiliateUrl . "\n\nVisit our eBay store\n\n" . $hashtags ;
 
 $endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/photos";
 $postData = [
-    "message" => $message . "\n\n" . $affiliateUrl, 
-    "url" => $imgUrl,
+    "message" => $message, 
+    "url" => $highResImgUrl,
     "access_token" => $selectedPage['token']
 ];
   
