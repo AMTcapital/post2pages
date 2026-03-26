@@ -1,0 +1,55 @@
+name: Post2Page
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Run Script
+        env:
+        
+          campID: ${{ secrets.campID }}
+          toolID: ${{ secrets.toolID }}
+          rotationID: ${{ secrets.rotationID }}
+          
+          FB_PAGE_ID_1: ${{ secrets.FB_PAGE_ID_1 }}
+          FB_PAGE_TOKEN_1: ${{ secrets.FB_PAGE_TOKEN_1 }}
+          
+          FB_PAGE_ID_2: ${{ secrets.FB_PAGE_ID_2 }}
+          FB_PAGE_TOKEN_2: ${{ secrets.FB_PAGE_TOKEN_2 }}
+          
+          FB_PAGE_ID_3: ${{ secrets.FB_PAGE_ID_3 }}
+          FB_PAGE_TOKEN_3: ${{ secrets.FB_PAGE_TOKEN_3 }}
+          
+        run: php post2page.php
+
+      - name: Commit Updated Inventory
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add list.json
+          git add state.json
+          if ! git diff --quiet --staged; then
+            git commit -m "Posted! High Five"
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
