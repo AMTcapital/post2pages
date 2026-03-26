@@ -7,21 +7,25 @@ $toolID = getenv('toolID');
 $rotationID = getenv('rotationID');
 
 $fbpages = [
-    ['id' => getenv('FB_PAGE_FBQ_ID'), 'token' => getenv('FB_PAGE_FBQ_TOKEN')],
-    ['id' => getenv('FB_PAGE_ESQ_ID'), 'token' => getenv('FB_PAGE_ESQ_TOKEN')]
+    ['id' => getenv('FB_PAGE_FBQ_ID'), 'token' => getenv('FB_PAGE_FBQ_TOKEN'), 'file' => 'listfbq.json'],
+    ['id' => getenv('FB_PAGE_ESQ_ID'), 'token' => getenv('FB_PAGE_ESQ_TOKEN'), 'file' => 'listesq.json']
 ];
 
-$inventoryFile = __DIR__ . "/listfbq.json";
+$pageIndex = $state['next_index_fbq']%count($fbpages);
+$selectedPage = $fbpages[$pageIndex];
+$dataFile = $selectedPage['file'];
+
+$inventoryFile = __DIR__ . "/inv/". $dataFile;
 $stateFile = __DIR__ . "/state.json";
 
 if (!file_exists($inventoryFile)) {
-    die("listfbq.json not found");
+    die( $dataFile . " not found");
 }
 
 $state = json_decode(file_get_contents($stateFile), true);
 $items = json_decode(file_get_contents($inventoryFile), true);
 if (!$items) {
-    die("Error reading listfbq.json");
+    die("Error reading " . $dataFile);
 }
 
 $nextItem = null;
@@ -37,10 +41,6 @@ foreach ($items as $index => $item) {
 if ($nextItem === null) {
     die("All items have been posted.");
 }
-
-// 3. Pick the NEXT page in the rotation
-$pageIndex = $state['next_index_fbq'] % count($fbpages);
-$selectedPage = $fbpages[$pageIndex];
 
 $title = $nextItem["title"];
 $price = $nextItem["price"];
