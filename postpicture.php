@@ -56,8 +56,7 @@ $imgUrl = $nextItem['imgUrl'];
 $dynamicTags = getHashtagsFromTitle($item['title']);
 $hashtags = "\n\n#eBayseller #eBayFinds #esquireattire " . $dynamicTags . " #ad";
 $message = $item['title'] . "\nPrice: " . $item['price'] . " " . $item['currency'] . "\n\n" . $hashtags . "\n\nLink:";
-$pageIndex = $state['next_page_index'] % count($fbpages);
-$selectedPage = $fbpages[$pageIndex];
+
 $endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/photos";
 $postData = [
     "message" => $message . "\n\n" . $affiliateUrl, 
