@@ -11,15 +11,15 @@ $fbpages = [
     ['id' => getenv('FB_PAGE_ESQ_ID'), 'token' => getenv('FB_PAGE_ESQ_TOKEN'), 'file' => 'listesq.json']
 ];
 
-$stateFile = __DIR__ . "/state.json";
+$stateFile = __DIR__ . "/inv/state.json";
 if (!file_exists($stateFile)) {
     // Create a default state if it's missing so the script doesn't crash
-    $state = ['next_index_fbq' => 0];
+    $state = ['next_index' => 0];
 } else {
     $state = json_decode(file_get_contents($stateFile), true);
 }
 
-$pageIndex = $state['next_index_fbq']%count($fbpages);
+$pageIndex = $state['next_index']%count($fbpages);
 $selectedPage = $fbpages[$pageIndex];
 $dataFile = $selectedPage['file'];
 
@@ -102,7 +102,7 @@ if (isset($result["id"])) {
 
     // Save progress
     $items[$nextIndex]["posted"] = true;
-    $state["next_index_fbq"] = ($pageIndex + 1) % count($fbpages);
+    $state["next_index"] = ($pageIndex + 1) % count($fbpages);
     
     file_put_contents($inventoryFile, json_encode($items, JSON_PRETTY_PRINT));
     file_put_contents($stateFile, json_encode($state, JSON_PRETTY_PRINT));
