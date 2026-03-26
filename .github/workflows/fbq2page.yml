@@ -29,11 +29,11 @@ jobs:
           toolID: ${{ secrets.toolID }}
           rotationID: ${{ secrets.rotationID }}
           
-          FB_PAGE_ID_1: ${{ secrets.FB_PAGE_FBQ_ID}}
-          FB_PAGE_TOKEN_1: ${{ secrets.FB_PAGE_FBQ_TOKEN }}
+          FB_PAGE_FBQ_ID: ${{ secrets.FB_PAGE_FBQ_ID}}
+          FB_PAGE_FBQ_TOKEN: ${{ secrets.FB_PAGE_FBQ_TOKEN }}
           
-          FB_PAGE_ID_2: ${{ secrets.FB_PAGE_ESQ_ID }}
-          FB_PAGE_TOKEN_2: ${{ secrets.FB_PAGE_ESQ_TOKEN }}
+          FB_PAGE_ESQ_ID: ${{ secrets.FB_PAGE_ESQ_ID }}
+          FB_PAGE_ESQ_TOKEN: ${{ secrets.FB_PAGE_ESQ_TOKEN }}
           
         run: php fbq2page.php
 
