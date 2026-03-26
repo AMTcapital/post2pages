@@ -41,7 +41,7 @@ if ($nextItem === null) {
 }
 
 // 3. Pick the NEXT page in the rotation
-$pageIndex = $state['next_page_index'] % count($facebookPages);
+$pageIndex = $state['next_page_index'] % count($fbpages);
 $selectedPage = $fbpages[$pageIndex];
 
 $title = $nextItem["title"];
@@ -80,15 +80,15 @@ if (isset($result["id"])) {
     $atLeastOneSuccess = true; 
 
     // Save progress
-    $items[$nextItemIndex]["posted"] = true;
-    $state['next_index'] = ($idx + 1) % count($facebookPages);
+    $items[$nextIndex]["posted"] = true;
+    $state['next_index'] = ($pageIndex + 1) % count($fbpages);
     
     file_put_contents($inventoryFile, json_encode($items, JSON_PRETTY_PRINT));
     file_put_contents($stateFile, json_encode($state, JSON_PRETTY_PRINT));
     echo "\nFinal Status: Item marked as posted.\nPage Index changed.";
     
 } else {
-    echo "Error posting to Page $currentPageId: " . $response . "\n";
+    echo "Error posting to Page: " . $response . "\n";
 }
 
 function getHashtagsFromTitle($title) {
