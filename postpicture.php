@@ -41,7 +41,7 @@ if ($nextItem === null) {
 }
 
 // 3. Pick the NEXT page in the rotation
-$pageIndex = $state['next_page_index'] % count($fbpages);
+$pageIndex = $state['next_index'] % count($fbpages);
 $selectedPage = $fbpages[$pageIndex];
 
 $title = $nextItem["title"];
