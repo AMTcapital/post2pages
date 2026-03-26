@@ -38,9 +38,9 @@ jobs:
           FB_PAGE_ID_3: ${{ secrets.FB_PAGE_ID_3 }}
           FB_PAGE_TOKEN_3: ${{ secrets.FB_PAGE_TOKEN_3 }}
           
-        run: php post2page.php
+        run: php postpicture.php
 
-      - name: Commit Updated Inventory
+      - name: Commit Updated List
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
