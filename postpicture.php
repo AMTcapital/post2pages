@@ -80,7 +80,7 @@ if (isset($result["id"])) {
 
     // Save progress
     $items[$nextIndex]["posted"] = true;
-    $state['next_index'] = ($pageIndex + 1) % count($fbpages);
+    $state["next_index"] = ($pageIndex + 1) % count($fbpages);
     
     file_put_contents($inventoryFile, json_encode($items, JSON_PRETTY_PRINT));
     file_put_contents($stateFile, json_encode($state, JSON_PRETTY_PRINT));
