@@ -62,14 +62,28 @@ $imgUrl = $nextItem['imgUrl'];
 $highResImgUrl = str_replace('s-l225', 's-l1600', $imgUrl);
 $dynamicTags = getHashtagsFromTitle($item['title']);
 $hashtags = "\n\n#eBayseller #eBayFinds #esquireattire " . $dynamicTags . " #ad";
-$message = $item['title'] . "\nPrice: " . $item['price'] . " " . $item['currency'] . "\n\nLink: " .$affiliateUrl . "\n\nVisit our eBay store\n\n" . $hashtags ;
+$messagePhoto = $item['title'] . "\nPrice: " . $item['price'] . " " . $item['currency'] . "\n\nLink: " .$affiliateUrl . "\n\nVisit our eBay store\n\n" . $hashtags ;
+$messageFeed = $item['title'] . "\nPrice: " . $item['price'] . " " . $item['currency'] . "\n\n" . $hashtags ;
+$isThirdItem = (($nextIndex + 1)%3===0);
 
-$endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/photos";
-$postData = [
-    "message" => $message, 
-    "url" => $highResImgUrl,
-    "access_token" => $selectedPage['token']
+if (isThirdItem){
+// --- FEED ENDPOINT (Status Update with Link) ---
+    $endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/feed";
+    $postData = [
+        "message" => $messageFeed, 
+        "link" => $affiliatedUrl,
+        "access_token" => $selectedPage['token']
+    ];
+    echo "Using FEED endpoint for item index $nextIndex\n";
+} else {
+    $endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/photos";
+    $postData = [
+        "message" => $messagePhoto, 
+        "url" => $highResImgUrl,
+        "access_token" => $selectedPage['token']
 ];
+    echo "using Photo endpoint for item index $nextIndex\n";
+}
   
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $endpoint);
