@@ -10,7 +10,6 @@ $fbpages = [
     ['id' => getenv('FB_PAGE_ID_1'), 'token' => getenv('FB_PAGE_TOKEN_1')],
     ['id' => getenv('FB_PAGE_ID_2'), 'token' => getenv('FB_PAGE_TOKEN_2')],
     ['id' => getenv('FB_PAGE_ID_3'), 'token' => getenv('FB_PAGE_TOKEN_3')],
-    ['id' => getenv('FB_PAGE_ID_4'), 'token' => getenv('FB_PAGE_TOKEN_4')]
 ];
 
 $inventoryFile = __DIR__ . "/list.json";
