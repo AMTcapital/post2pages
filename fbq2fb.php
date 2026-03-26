@@ -11,18 +11,25 @@ $fbpages = [
     ['id' => getenv('FB_PAGE_ESQ_ID'), 'token' => getenv('FB_PAGE_ESQ_TOKEN'), 'file' => 'listesq.json']
 ];
 
+$stateFile = __DIR__ . "/state.json";
+if (!file_exists($stateFile)) {
+    // Create a default state if it's missing so the script doesn't crash
+    $state = ['next_index_fbq' => 0];
+} else {
+    $state = json_decode(file_get_contents($stateFile), true);
+}
+
 $pageIndex = $state['next_index_fbq']%count($fbpages);
 $selectedPage = $fbpages[$pageIndex];
 $dataFile = $selectedPage['file'];
 
 $inventoryFile = __DIR__ . "/inv/". $dataFile;
-$stateFile = __DIR__ . "/state.json";
+
 
 if (!file_exists($inventoryFile)) {
     die( $dataFile . " not found");
 }
 
-$state = json_decode(file_get_contents($stateFile), true);
 $items = json_decode(file_get_contents($inventoryFile), true);
 if (!$items) {
     die("Error reading " . $dataFile);
