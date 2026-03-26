@@ -41,7 +41,7 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add listfbq.json state.json
+          git add inv/*.json state.json
           if ! git diff --quiet --staged; then
             git commit -m "posted and updated"
             git pull --rebase origin main
