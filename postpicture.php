@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 
 $campID = getenv('campID');
 $toolID = getenv('toolID'); 
-$rotationID = getenvi('rotationID');
+$rotationID = getenv('rotationID');
 
 $fbpages = [
     ['id' => getenv('FB_PAGE_ID_1'), 'token' => getenv('FB_PAGE_TOKEN_1')],
