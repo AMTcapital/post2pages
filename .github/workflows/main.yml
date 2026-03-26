@@ -44,10 +44,9 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add list.json
-          git add state.json
+          git add list.json state.json
           if ! git diff --quiet --staged; then
-            git commit -m "Posted! High Five"
+            git commit -m "posted and updated"
             git pull --rebase origin main
             git push origin main
           else
