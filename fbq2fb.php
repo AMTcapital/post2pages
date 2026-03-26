@@ -64,9 +64,10 @@ $dynamicTags = getHashtagsFromTitle($item['title']);
 $hashtags = "\n\n#eBayseller #eBayFinds #esquireattire " . $dynamicTags . " #ad";
 $messagePhoto = $item['title'] . "\nPrice: " . $item['price'] . " " . $item['currency'] . "\n\nLink: " .$affiliateUrl . "\n\nVisit our eBay store\n\n" . $hashtags ;
 $messageFeed = $item['title'] . "\nPrice: " . $item['price'] . " " . $item['currency'] . "\n\n" . $hashtags ;
+
 $isThirdItem = (($nextIndex + 1)%3===0);
 
-if (isThirdItem){
+if ($isThirdItem){
 // --- FEED ENDPOINT (Status Update with Link) ---
     $endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/feed";
     $postData = [
