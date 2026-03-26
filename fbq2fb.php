@@ -72,7 +72,7 @@ if ($isThirdItem){
     $endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/feed";
     $postData = [
         "message" => $messageFeed, 
-        "link" => $affiliatedUrl,
+        "link" => $affiliateUrl,
         "access_token" => $selectedPage['token']
     ];
     echo "Using FEED endpoint for item index $nextIndex\n";
