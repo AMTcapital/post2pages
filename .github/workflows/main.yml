@@ -2,7 +2,7 @@ name: Post2Page
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/27 * * * *'
   workflow_dispatch:
 
 env:
