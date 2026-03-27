@@ -25,6 +25,7 @@ jobs:
       - name: Run Script
         env:
         
+          FRIEND_CAMPAIGN_ID: ${{ secrets.FRIEND_CAMPAIGN_ID }}
           campID: ${{ secrets.campID }}
           toolID: ${{ secrets.toolID }}
           rotationID: ${{ secrets.rotationID }}
