@@ -2,8 +2,9 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$campID = getenv('campID');
-$toolID = getenv('toolID'); 
+$promoCampID = getenv('FRIEND_CAMPAIGN_ID');
+$mainCampID = getenv('campID');
+$toolID = getenv('toolID');
 $rotationID = getenv('rotationID');
 
 $fbpages = [
@@ -12,21 +13,37 @@ $fbpages = [
     ['id' => getenv('FB_PAGE_ID_3'), 'token' => getenv('FB_PAGE_TOKEN_3')]
 ];
 
-$inventoryFile = __DIR__ . "/list.json";
 $stateFile = __DIR__ . "/state.json";
+$inventoryFile = __DIR__ . "/list.json";
+$promoFile = __DIR__ . "/promo/deals_on_all.json";
 
 if (!file_exists($inventoryFile)) {
     die("list.json not found");
 }
 
 $state = json_decode(file_get_contents($stateFile), true);
-$items = json_decode(file_get_contents($inventoryFile), true);
+$nextItem = null;
+$nextIndex = null;
+
+// Pick the NEXT page in the rotation
+$pageIndex = $state['next_index'] % count($fbpages);
+$selectedPage = $fbpages[$pageIndex];
+
+// Select the Item base on the turn of the page 
+if ($pageIndex == 2){
+    $items = json_decode(file_get_contents($promoFile), true);
+    $campID= $promoCampID;
+    $activeFile=$promoFile;
+}else{
+    $items = json_decode(file_get_contents($inventoryFile), true);
+    $campID = $mainCampID;
+    $activeFile = $inventoryFile;
+}
+
 if (!$items) {
     die("Error reading list.json");
 }
 
-$nextItem = null;
-$nextIndex = null;
 foreach ($items as $index => $item) {
     if (empty($item["posted"])) {
         $nextItem = $item;
@@ -39,10 +56,6 @@ if ($nextItem === null) {
     die("All items have been posted.");
 }
 
-// 3. Pick the NEXT page in the rotation
-$pageIndex = $state['next_index'] % count($fbpages);
-$selectedPage = $fbpages[$pageIndex];
-
 $title = $nextItem["title"];
 $price = $nextItem["price"];
 // Support both 'currency' and 'currencyID' just in case
@@ -54,7 +67,7 @@ $affiliateUrl = "https://www.ebay.com/itm/{$itemID}?mkevt=1&mkcid=1&mkrid={$rota
 $imgUrl = $nextItem['imgUrl'];
 // Force the 1600px high-res version
 $highResImgUrl = str_replace('s-l225', 's-l1600', $imgUrl);
-$dynamicTags = getHashtagsFromTitle($item['title']);
+$dynamicTags = getHashtagsFromTitle($nextItem['title']);
 $hashtags = "\n\n#eBayseller #eBayFinds #esquireattire " . $dynamicTags . " #ad";
 $message = $item['title'] . "\nPrice: " . $item['price'] . " " . $item['currency'] . "\n\nLink: " .$affiliateUrl . "\n\nVisit our eBay store\n\n" . $hashtags ;
 
@@ -83,7 +96,7 @@ if (isset($result["id"])) {
     $items[$nextIndex]["posted"] = true;
     $state["next_index"] = ($pageIndex + 1) % count($fbpages);
     
-    file_put_contents($inventoryFile, json_encode($items, JSON_PRETTY_PRINT));
+    file_put_contents($activeFile, json_encode($items, JSON_PRETTY_PRINT));
     file_put_contents($stateFile, json_encode($state, JSON_PRETTY_PRINT));
     echo "\nFinal Status: Item marked as posted.\nPage Index changed.";
     
