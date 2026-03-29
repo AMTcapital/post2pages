@@ -43,7 +43,7 @@ if ($pageIndex == 2){
     $campID = $potteryCampID;
     $activeFile=$potteryFile;
 } elseif ($pageIndex == 3){
-    $item = json_decode(file_get_contents($esqPageFile), true);
+    $items = json_decode(file_get_contents($esqPageFile), true);
     $campID = $mainCampID;
     $activeFile = $inventoryFile;
 }else{
