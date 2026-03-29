@@ -45,7 +45,7 @@ if ($pageIndex == 2){
 } elseif ($pageIndex == 3){
     $items = json_decode(file_get_contents($esqPageFile), true);
     $campID = $mainCampID;
-    $activeFile = $inventoryFile;
+    $activeFile = $esqPageFile;
 }else{
     $items = json_decode(file_get_contents($inventoryFile), true);
     $campID = $mainCampID;
