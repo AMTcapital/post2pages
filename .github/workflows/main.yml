@@ -38,6 +38,9 @@ jobs:
           
           FB_PAGE_ID_3: ${{ secrets.FB_PAGE_ID_3 }}
           FB_PAGE_TOKEN_3: ${{ secrets.FB_PAGE_TOKEN_3 }}
+
+          FB_PAGE_ID_4: ${{ secrets.FB_PAGE_ID_4 }}
+          FB_PAGE_TOKEN_4: ${{ secrets.FB_PAGE_TOKEN_4 }}
           
         run: php postpicture.php
 
