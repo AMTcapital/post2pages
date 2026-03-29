@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+$potteryCampID = getenv('Pottery_Camp_ID'); 
 $promoCampID = getenv('FRIEND_CAMPAIGN_ID');
 $mainCampID = getenv('campID');
 $toolID = getenv('toolID');
@@ -16,6 +17,7 @@ $fbpages = [
 $stateFile = __DIR__ . "/state.json";
 $inventoryFile = __DIR__ . "/list.json";
 $promoFile = __DIR__ . "/promo/deals_on_all.json";
+$potteryFile = __DIR__ . "/promo/pottery.json";
 
 if (!file_exists($inventoryFile)) {
     die("list.json not found");
@@ -34,7 +36,11 @@ if ($pageIndex == 2){
     $items = json_decode(file_get_contents($promoFile), true);
     $campID= $promoCampID;
     $activeFile=$promoFile;
-}else{
+}elseif ($pageIndex ==1){
+    $items = json_decode(file_get_contents($potteryFile), true);
+    $campID = $potteryCampID;
+    $activeFile=$potteryFile;
+} else{
     $items = json_decode(file_get_contents($inventoryFile), true);
     $campID = $mainCampID;
     $activeFile = $inventoryFile;
