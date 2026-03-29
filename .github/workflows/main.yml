@@ -24,7 +24,7 @@ jobs:
 
       - name: Run Script
         env:
-        
+          Pottery_Camp_ID: ${{ secrets.Pottery_Camp_ID }}
           FRIEND_CAMPAIGN_ID: ${{ secrets.FRIEND_CAMPAIGN_ID }}
           campID: ${{ secrets.campID }}
           toolID: ${{ secrets.toolID }}
@@ -45,7 +45,7 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add list.json state.json promo/deals_on_all.json
+          git add list.json state.json promo/deals_on_all.json promo/pottery.json
           if ! git diff --quiet --staged; then
             git commit -m "posted and updated"
             git pull --rebase origin main
