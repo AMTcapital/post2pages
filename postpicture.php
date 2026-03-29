@@ -11,13 +11,15 @@ $rotationID = getenv('rotationID');
 $fbpages = [
     ['id' => getenv('FB_PAGE_ID_1'), 'token' => getenv('FB_PAGE_TOKEN_1')],
     ['id' => getenv('FB_PAGE_ID_2'), 'token' => getenv('FB_PAGE_TOKEN_2')],
-    ['id' => getenv('FB_PAGE_ID_3'), 'token' => getenv('FB_PAGE_TOKEN_3')]
+    ['id' => getenv('FB_PAGE_ID_3'), 'token' => getenv('FB_PAGE_TOKEN_3')],
+    ['id' => getenv('FB_PAGE_ID_4'), 'token' => getenv('FB_PAGE_TOKEN_4')]
 ];
 
 $stateFile = __DIR__ . "/state.json";
-$inventoryFile = __DIR__ . "/list.json";
-$promoFile = __DIR__ . "/promo/deals_on_all.json";
-$potteryFile = __DIR__ . "/promo/pottery.json";
+$inventoryFile = __DIR__ . "/inv/esq_list.json"; //esquire inventory  exclusing category xxx
+$esqPageFile = __DIR__ . "/inv/esq_page.json";   // esqire inventory category xxx
+$promoFile = __DIR__ . "/promo/deals_on_all.json";  // promo for luxury 
+$potteryFile = __DIR__ . "/promo/pottery.json"; // promo for pottery and china 
 
 if (!file_exists($inventoryFile)) {
     die("list.json not found");
@@ -40,7 +42,11 @@ if ($pageIndex == 2){
     $items = json_decode(file_get_contents($potteryFile), true);
     $campID = $potteryCampID;
     $activeFile=$potteryFile;
-} else{
+} elseif ($pageIndex == 3){
+    $item = json_decode(file_get_contents($esqPageFile), true);
+    $campID = $mainCampID;
+    $activeFile = $inventoryFile;
+}else{
     $items = json_decode(file_get_contents($inventoryFile), true);
     $campID = $mainCampID;
     $activeFile = $inventoryFile;
