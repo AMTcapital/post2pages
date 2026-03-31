@@ -16,11 +16,23 @@ $fbpages = [
 ];
 
 // Define the targeting object
+/*
 $targeting = [
     'cities' => [
         ['key' => '2420605', 'name' => 'New York, NY'],
         ['key' => '2430536', 'name' => 'Los Angeles, CA'],
         ['key' => '2431621', 'name' => 'West Hartford, CT']
+    ]
+];
+*/
+// Define the targeting using the geo_locations wrapper
+$targeting = [
+    'geo_locations' => [
+        'cities' => [
+            ['key' => '2420605'], // New York, NY
+            ['key' => '2430536'], // Los Angeles, CA
+            ['key' => '2431621']  // West Hartford, CT
+        ]
     ]
 ];
 
