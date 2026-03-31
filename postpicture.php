@@ -87,6 +87,7 @@ $endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/photos";
 $postData = [
     "message" => $message, 
     "url" => $highResImgUrl,
+    "place"   => "104040716298516",
     "access_token" => $selectedPage['token']
 ];
   
