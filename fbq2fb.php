@@ -121,6 +121,31 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 $response = curl_exec($ch);
+
+// Assuming $response is the json_decoded array from your post request
+if (isset($response['id'])) {
+    $postId = $response['id'];
+    
+    // Use the ?fields= parameter to force Facebook to show the targeting
+    $verifyUrl = "https://graph.facebook.com/v20.0/{$postId}?fields=targeting,feed_targeting&access_token=" . $selectedPage['token'];
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $verifyUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $verifyResponse = json_decode(curl_exec($ch), true);
+    curl_close($ch);
+
+    echo "--- Verification Result ---\n";
+    if (!empty($verifyResponse['targeting']) || !empty($verifyResponse['feed_targeting'])) {
+        echo "✅ SUCCESS: Targeting was applied.\n";
+        print_r($verifyResponse['targeting'] ?? $verifyResponse['feed_targeting']);
+    } else {
+        echo "⚠️ WARNING: No targeting found. The post is likely PUBLIC to everyone.\n";
+    }
+}
+
+
+
 $result = json_decode($response, true);
 curl_close($ch);
 
