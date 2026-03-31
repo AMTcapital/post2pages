@@ -11,6 +11,25 @@ $fbpages = [
     ['id' => getenv('FB_PAGE_ESQ_ID'), 'token' => getenv('FB_PAGE_ESQ_TOKEN'), 'file' => 'listesq.json']
 ];
 
+$targeting = [
+    'geo_locations' => [
+        // 1. Multiple Cities
+        'cities' => [
+            ['key' => '2431621'], // West Hartford, CT
+            ['key' => '2420605'], // New York, NY
+            ['key' => '2430536'], // Los Angeles, CA
+            ['key' => '2422533'], // Miami, FL
+            ['key' => '2421303']  // Boston, MA
+        ],
+        // 2. Entire States (Regions)
+        'regions' => [
+            ['key' => '3905'] // Connecticut (State ID)
+        ],
+        // 3. Countries
+        'countries' => ['US'] 
+    ]
+];
+
 $stateFile = __DIR__ . "/inv/state.json";
 if (!file_exists($stateFile)) {
     // Create a default state if it's missing so the script doesn't crash
@@ -73,6 +92,7 @@ if ($isThirdItem){
     $postData = [
         "message" => $messageFeed, 
         "link" => $affiliateUrl,
+        'feed_targeting' => json_encode($targeting),
         "access_token" => $selectedPage['token']
     ];
     echo "Using FEED endpoint for item index $nextIndex\n";
@@ -81,6 +101,7 @@ if ($isThirdItem){
     $postData = [
         "message" => $messagePhoto, 
         "url" => $highResImgUrl,
+        'feed_targeting' => json_encode($targeting),
         "access_token" => $selectedPage['token']
 ];
     echo "using Photo endpoint for item index $nextIndex\n";
