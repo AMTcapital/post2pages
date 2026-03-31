@@ -15,6 +15,15 @@ $fbpages = [
     ['id' => getenv('FB_PAGE_ID_4'), 'token' => getenv('FB_PAGE_TOKEN_4')]
 ];
 
+// Define the targeting object
+$targeting = [
+    'cities' => [
+        ['key' => '2420605', 'name' => 'New York, NY'],
+        ['key' => '2430536', 'name' => 'Los Angeles, CA'],
+        ['key' => '2431621', 'name' => 'West Hartford, CT']
+    ]
+];
+
 $stateFile = __DIR__ . "/state.json";
 $inventoryFile = __DIR__ . "/inv/esq_list.json"; //esquire inventory  exclusing category xxx
 $esqPageFile = __DIR__ . "/inv/esq_page.json";   // esqire inventory category xxx
@@ -87,6 +96,7 @@ $endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/photos";
 $postData = [
     "message" => $message, 
     "url" => $highResImgUrl,
+    'feed_targeting' => json_encode($targeting),
     //'place' => json_encode(['id' => '103102353061444']),
     "access_token" => $selectedPage['token']
 ];
