@@ -122,32 +122,6 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 $response = curl_exec($ch);
 
-// Step 1: Get the ID from the successful post response
-$postId = $response['id']; 
-
-// Step 2: Query the targeting metadata
-$verifyUrl = "https://graph.facebook.com/v20.0/{$postId}?fields=targeting,feed_targeting&access_token=" . $selectedPage['token'];
-
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $verifyUrl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$verifyRaw = curl_exec($ch);
-$verifyResponse = json_decode($verifyRaw, true);
-curl_close($ch);
-
-// Step 3: Print it so it shows up in GitHub Actions
-echo "\n--- GEOGRAPHIC TARGETING VERIFICATION ---\n";
-if (!empty($verifyResponse['targeting']) || !empty($verifyResponse['feed_targeting'])) {
-    echo "✅ Targeting Active: " . json_encode($verifyResponse['targeting'] ?? $verifyResponse['feed_targeting'], JSON_PRETTY_PRINT) . "\n";
-} else {
-    echo "⚠️ No Targeting Detected (Post is Public)\n";
-    // Optional: Print the raw response to debug why it's empty
-    echo "Raw Response: " . $verifyRaw . "\n";
-}
-echo "------------------------------------------\n";
-
-
-
 $result = json_decode($response, true);
 curl_close($ch);
 
