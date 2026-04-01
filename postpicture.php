@@ -15,23 +15,23 @@ $fbpages = [
     ['id' => getenv('FB_PAGE_ID_4'), 'token' => getenv('FB_PAGE_TOKEN_4')]
 ];
 
-// Define the targeting object
-/*
-$targeting = [
-    'cities' => [
-        ['key' => '2420605', 'name' => 'New York, NY'],
-        ['key' => '2430536', 'name' => 'Los Angeles, CA'],
-        ['key' => '2431621', 'name' => 'West Hartford, CT']
-    ]
-];
-*/
-// Define the targeting using the geo_locations wrapper
 $targeting = [
     'geo_locations' => [
+        'zips' => [
+            ['key' => 'US:06107'], // West Hartford, CT
+            ['key' => 'US:10021'], // Upper East Side, NY
+            ['key' => 'US:90210'], // Beverly Hills, CA
+            ['key' => 'US:06830']  // Greenwich, CT
+        ],
         'cities' => [
+            ['key' => '2431621'], // West Hartford, CT
             ['key' => '2420605'], // New York, NY
-            ['key' => '2430536'], // Los Angeles, CA
-            ['key' => '2431621']  // West Hartford, CT
+            ['key' => '2422533'], // Miami, FL
+            ['key' => '2421303'], // Boston, MA
+            ['key' => '2419391'], // Los Angeles, CA
+            ['key' => '2391030'], // Houston, TX
+            ['key' => '2416450'], // Chicago, IL
+            ['key' => '2414705'] // Phoenix, AZ
         ]
     ]
 ];
