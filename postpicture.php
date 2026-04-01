@@ -106,10 +106,10 @@ $message = $nextItem['title'] . "\nPrice: " . $nextItem['price'] . " " . $nextIt
 
 $endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/photos";
 $postData = [
-    "message" => $message, 
+    "caption" => $message, // Use 'caption' for the photo endpoint, though 'message' often works as an alias
     "url" => $highResImgUrl,
-    'feed_targeting' => json_encode($targeting),
-    //'place' => json_encode(['id' => '103102353061444']),
+    "targeting" => json_encode($targeting), // Changed from feed_targeting to targeting
+    "published" => "true",
     "access_token" => $selectedPage['token']
 ];
   
