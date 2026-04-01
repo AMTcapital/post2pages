@@ -13,27 +13,22 @@ $fbpages = [
 
 $targeting = [
     'geo_locations' => [
-        // Target specific high-value neighborhoods by Zip
         'zips' => [
-            ['key' => 'US:06107'], // West Hartford (Center), CT
-            ['key' => 'US:10021'], // Upper East Side (Luxury Clothes/Antiques), NY
+            ['key' => 'US:06107'], // West Hartford, CT
+            ['key' => 'US:10021'], // Upper East Side, NY
             ['key' => 'US:90210'], // Beverly Hills, CA
-            ['key' => 'US:06830']  // Greenwich, CT (Wealthy Investors)
+            ['key' => 'US:06830']  // Greenwich, CT
         ],
-        // Multiple Cities
         'cities' => [
             ['key' => '2431621'], // West Hartford, CT
             ['key' => '2420605'], // New York, NY
-            ['key' => '2430536'], // Los Angeles, CA
             ['key' => '2422533'], // Miami, FL
-            ['key' => '2421303']  // Boston, MA
-        ],
-        // Entire States (Regions)
-        'regions' => [
-            ['key' => '3905'] // Connecticut (State ID)
-        ],
-        // 3. Countries
-        'countries' => ['US'] 
+            ['key' => '2421303'], // Boston, MA
+            ['key' => '2419391'], // Los Angeles, CA
+            ['key' => '2391030'], // Houston, TX
+            ['key' => '2416450'], // Chicago, IL
+            ['key' => '2414705'], // Phoenix, AZ
+        ]
     ]
 ];
 
