@@ -103,7 +103,7 @@ if ($isThirdItem){
     $postData = [
         "message" => $messagePhoto, 
         "url" => $highResImgUrl,
-        'feed_targeting' => json_encode($targeting),
+       // 'feed_targeting' => json_encode($targeting),
         "access_token" => $selectedPage['token']
 ];
     echo "using Photo endpoint for item index $nextIndex\n";
