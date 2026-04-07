@@ -108,7 +108,7 @@ $endpoint = "https://graph.facebook.com/v19.0/{$selectedPage['id']}/photos";
 $postData = [
     "caption" => $message, // Use 'caption' for the photo endpoint, though 'message' often works as an alias
     "url" => $highResImgUrl,
-   // "targeting" => json_encode($targeting), // Changed from feed_targeting to targeting
+    "feed_targeting" => json_encode($targeting), // Changed from feed_targeting to targeting was a mistake - use "feed_targeging" - remains it global visible 
     "published" => "true",
     "access_token" => $selectedPage['token']
 ];
