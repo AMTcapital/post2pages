@@ -1,6 +1,6 @@
 <?php
 // 1. Configuration
-$jsonFile = 'inventory.json';
+$jsonFile = 'esq_page.json';
 // We will pull the phone number from an Environment Variable (GitHub Secret)
 $phone = getenv('MY_PHONE_NUMBER'); 
 $gateway = $phone . '@tmomail.net';
