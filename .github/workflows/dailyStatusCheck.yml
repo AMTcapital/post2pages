@@ -1,0 +1,28 @@
+name: Daily Progress Notification
+
+on:
+  schedule:
+    # 02:00 UTC is 9:00 PM EST (Standard Time)
+    # Note: GitHub Actions can be delayed by 15-30 mins during peak times
+    - cron: '0 2 * * *'
+  workflow_dispatch: # This allows you to click a button to test it manually
+
+jobs:
+  notify-progress:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, json
+
+      - name: Run Notification Script
+        env:
+          # This pulls your secret into the script's environment
+          MY_PHONE_NUMBER: ${{ secrets.MY_PHONE_NUMBER }}
+        run: php watcher.php
