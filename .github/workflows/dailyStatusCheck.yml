@@ -25,4 +25,4 @@ jobs:
         env:
           # This pulls your secret into the script's environment
           MY_PHONE_NUMBER: ${{ secrets.MY_PHONE_NUMBER }}
-        run: php watcher.php
+        run: php inv/watcher.php
