@@ -86,7 +86,8 @@ foreach ($items as $index => $item) {
 }
 
 if ($nextItem === null) {
-    die("All items have been posted.");
+    //die("All items have been posted.");
+    goto SkippingFile; //jump to the next file
 }
 
 $title = $nextItem["title"];
@@ -129,6 +130,9 @@ if (isset($result["id"])) {
 
     // Save progress
     $items[$nextIndex]["posted"] = true;
+    // if that specific file is finished skipping to the next file 
+    // will be replaced with a more robust process later 
+    SkippingFile: 
     $state["next_index"] = ($pageIndex + 1) % count($fbpages);
     
     file_put_contents($activeFile, json_encode($items, JSON_PRETTY_PRINT));
